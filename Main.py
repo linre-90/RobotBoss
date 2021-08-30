@@ -26,7 +26,6 @@ class Login(Screen):
 		result = LoginHandler().log_user_in_handler(self.__username.text, self.__password.text)
 		if result is not None:
 			LoginHandler.USERNAME = self.__username.text
-			print(LoginHandler.USERNAME)
 			#TODO transition to other page
 		else:
 			WrongPasswordOrUserName().open()
@@ -95,7 +94,3 @@ class MyApp(App):
 
 if __name__ == "__main__":
 	MyApp().run()
-	print(LoginHandler.USERNAME)
-
-
-
