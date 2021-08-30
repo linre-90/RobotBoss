@@ -1,6 +1,6 @@
-*db.*
 
 __pycache__/
+data/
 *.py[cod]
 *$py.class
 
