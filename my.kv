@@ -1,0 +1,130 @@
+#:kivy 2.0.0
+#:import Factory kivy.factory.Factory
+
+
+#:set header1 50
+#:set global_padding 50,50,50,100
+#:set xs_button 0.65,0.45
+#:set error_color 0.85, 0, 0, 1
+#:set error_font_size 12
+
+
+<Login>:
+	BoxLayout: 
+		padding: global_padding
+		GridLayout:
+			rows:5
+			cols:3
+		# Row 1
+			Label:
+				text:""
+			Label:
+				text:"Robot Boss"
+				font_size: header1
+			Label:
+				text:""
+		# row 2
+			Label:
+				text:""
+			GridLayout:
+				cols:1
+				rows:3
+				Label:
+					text:"Username"
+				TextInput:
+					id:username
+					multiline: False
+			Label:
+				text:""
+		# row 3
+			Label:
+				text:""
+			GridLayout:
+				cols:1
+				rows:2
+				Label:
+					text:"Password"
+				TextInput:
+					id:password
+					multiline: False
+					password: True
+			Label:
+				text:""
+		# row 4
+			Label:
+				text:""
+			GridLayout:
+				cols:1
+				rows:2
+				Label:
+					text:""
+				Button:
+					id:sign_in
+					disabled: True
+					text:"Login"
+					on_press: root.login()
+			Label:
+				text:""
+		# row 5
+			Label:
+				text:""
+			GridLayout:
+				cols:1
+				rows:2
+				Label:
+					text:"No account yet?"
+				Button:
+					id:sign_up
+					disabled: True
+					text:"Create account"
+					size_hint: xs_button
+					on_press: root.create_account()
+			Label:
+				text:""			
+
+<CreateUserPopUp@Popup>:
+    auto_dismiss: False
+    title: "Create user?"
+    size: 500,500
+    size_hint: None, None
+    BoxLayout:
+    	orientation: "vertical"
+    	Label:
+    		text:"Are you sure to create local user?"
+    	Label:
+    		text:"After creation log in..."
+    	BoxLayout:
+    		padding: 50,50,50,50
+    		orientation:"horizontal"
+    		Button:
+        		text: 'Yes!'
+        		on_release: root.make_user()
+        	Button:
+        		text:"No"
+        		on_release: root.dismiss()
+
+<UserExistPopUp@Popup>:
+    title: "Username exists"
+    size: 500,500
+    size_hint: None, None
+    BoxLayout:
+    	padding: global_padding
+    	orientation: "vertical"
+    	Label:
+    		text:"Username is already taken..."
+        Button:
+        	text:"Fine, i create another one!"
+        	on_release: root.dismiss()
+
+<WrongPasswordOrUserName@Popup>:
+    title: "Invalid credentials"
+    size: 500,500
+    size_hint: None, None
+    BoxLayout:
+    	padding: global_padding
+    	orientation: "vertical"
+    	Label:
+    		text:"Wrong password or username!"
+        Button:
+        	text:"Try again!"
+        	on_release: root.dismiss()
