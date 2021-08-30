@@ -9,7 +9,12 @@ class DatabaseHandler:
 		Class provides methods to interact with sqlite3 database.
 	"""
 	def __init__(self):
+		# TODO Check windows compatibly
+		if not Path("data").exists():
+			Path("data").mkdir()
+
 		self.__database_path = Path("data/users.db")
+
 
 
 	def try_open_database(self):

@@ -1,4 +1,3 @@
-from Database import DatabaseHandler
 from LoginHandler import LoginHandler
 import kivy
 kivy.require("2.0.0")
@@ -24,11 +23,10 @@ class Login(Screen):
 		"""
 			Login button callback.
 		"""
-		LoginHandler()
-		result = DatabaseHandler().log_user_in(self.__username.text, self.__password.text)
+		result = LoginHandler().log_user_in_handler(self.__username.text, self.__password.text)
 		if result is not None:
-			global LOGGED_IN_USER
-			LOGGED_IN_USER = self.__username.text
+			LoginHandler.USERNAME = self.__username.text
+			print(LoginHandler.USERNAME)
 			#TODO transition to other page
 		else:
 			WrongPasswordOrUserName().open()
@@ -71,8 +69,8 @@ class CreateUserPopUp(Popup):
 			Method makes actual shots to create user
 		"""
 		LoginHandler()
-		x = DatabaseHandler().insert_user(self.__username, self.__password)
-		if x is None:
+		response = LoginHandler().create_user_account_handler(self.__username, self.__password)
+		if response is None:
 			popup = UserExistPopUp()
 			popup.open()
 		self.dismiss()
@@ -96,9 +94,8 @@ class MyApp(App):
 		return sm
 
 if __name__ == "__main__":
-	initialize_db = DatabaseHandler()
-	initialize_db.try_open_database()
 	MyApp().run()
+	print(LoginHandler.USERNAME)
 
 
 
